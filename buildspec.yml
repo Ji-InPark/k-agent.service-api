@@ -4,8 +4,6 @@ phases:
     commands:
       - chmod +x ./gradlew
       - ./gradlew build
-  post_build:
-    commands:
       - mv build/libs/*.jar app.jar
 artifacts:
   files:
