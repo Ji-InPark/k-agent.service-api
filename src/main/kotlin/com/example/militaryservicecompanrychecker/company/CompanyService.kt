@@ -59,6 +59,7 @@ class CompanyService(
                 companyScale,
                 ArrayList()
             )
+            
             company.companyName.add(companyName)
             company.serviceTypes.add(entry.key.second.convertToServiceCategory())
 
