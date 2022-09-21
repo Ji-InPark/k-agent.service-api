@@ -19,47 +19,50 @@ class CompanyService(
     }
 
     fun getCompanyInformationListByMap(nameUrlMap: HashMap<Pair<String, Int>, String>): List<Company> {
-        val map = HashMap<String, Company>()
+        val map = HashMap<String?, Company>()
 
         for (entry in nameUrlMap.entries) {
-            if (map.containsKey(entry.key.first)) {
-                map[entry.key.first]!!.serviceTypes.add(entry.key.second.convertToServiceCategory())
-            } else {
-                val response = okHttpClient.newCall(
-                    Request.Builder()
-                        .url("https://work.mma.go.kr${entry.value}")
-                        .get()
-                        .build()
-                ).execute()
+            val response = okHttpClient.newCall(
+                Request.Builder()
+                    .url("https://work.mma.go.kr${entry.value}")
+                    .get()
+                    .build()
+            ).execute()
 
-                val jsoup = Jsoup.parse(response.body?.string() ?: "")
+            val jsoup = Jsoup.parse(response.body?.string() ?: "")
 
-                val elements = jsoup.select("table.table_row")
+            val elements = jsoup.select("table.table_row")
 
-                val companySummaryInformation = elements[0].select("tr")
-                val companyDetailInformation = elements[1].select("tr")
+            val companySummaryInformation = elements[0].select("tr")
+            val companyDetailInformation = elements[1].select("tr")
 
-                val companyName = companySummaryInformation[0].select("td").first()?.text()
-                val companyLocation = companySummaryInformation[1].select("td").first()?.text()
-                val companyPhoneNumber = companySummaryInformation[2].select("td")[0]?.text()
-                val companyFaxNumber = companySummaryInformation[2].select("td")[1]?.text()
+            val companyName = companySummaryInformation[0].select("td").first()?.text()
+            val companyLocation = companySummaryInformation[1].select("td").first()?.text()
+            val companyPhoneNumber = companySummaryInformation[2].select("td")[0]?.text()
+            val companyFaxNumber = companySummaryInformation[2].select("td")[1]?.text()
 
-                val companySector = companyDetailInformation[0].select("td").first()?.text()
-                val companyScale = companyDetailInformation[1].select("td").first()?.text()
+            val companySector = companyDetailInformation[0].select("td").first()?.text()
+            val companyScale = companyDetailInformation[1].select("td").first()?.text()
 
-                val company = Company(
-                    companyName,
-                    companyLocation,
-                    companyPhoneNumber,
-                    companyFaxNumber,
-                    companySector,
-                    companyScale,
-                    ArrayList()
-                )
-                company.serviceTypes.add(entry.key.second.convertToServiceCategory())
-
-                map[entry.key.first] = company
+            if (map.containsKey(companyFaxNumber)) {
+                map[companyFaxNumber]!!.companyName.add(companyName)
+                map[companyFaxNumber]!!.serviceTypes.add(entry.key.second.convertToServiceCategory())
+                continue
             }
+
+            val company = Company(
+                ArrayList(),
+                companyLocation,
+                companyPhoneNumber,
+                companyFaxNumber,
+                companySector,
+                companyScale,
+                ArrayList()
+            )
+            company.companyName.add(companyName)
+            company.serviceTypes.add(entry.key.second.convertToServiceCategory())
+
+            map[companyFaxNumber] = company
         }
 
         return map.entries.map { it.value }
