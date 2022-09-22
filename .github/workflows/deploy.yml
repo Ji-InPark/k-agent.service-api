@@ -28,12 +28,6 @@ jobs:
         with:
           fallback: 0.0.0
         id: extract_tag
-      - name: Set version
-        shell: bash
-        run: >-
-          tag_version="${{ steps.extract_tag.outputs.tag }}"
-          echo "VERSION=$(echo $tag_version)" >> $GITHUB_ENV
-        id: explicit_version
       - name: Grant execute permissions for gradlew
         run: chmod +x gradlew
       - name: Build
@@ -56,6 +50,6 @@ jobs:
           region: ap-northeast-2
           application_name: MilitaryServiceCompanyChecker
           environment_name: MilitaryServiceCompanyChecker
-          version_label: ${{ env.VERSION }}
+          version_label: ${{ steps.extract_tag.outputs.tag }}
           deployment_package: build/libs/*.jar
           wait_for_environment_recovery: 300
