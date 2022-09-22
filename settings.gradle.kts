@@ -1,1 +1,1 @@
-rootProject.name = "MilitaryServiceCompanryChecker"
+rootProject.name = "MilitaryServiceCompanyChecker"
