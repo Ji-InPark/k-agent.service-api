@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MilitaryServiceCompanryCheckerApplication
+class MilitaryServiceCompanyCheckerApplication
 
 fun main(args: Array<String>) {
-    runApplication<MilitaryServiceCompanryCheckerApplication>(*args)
+    runApplication<MilitaryServiceCompanyCheckerApplication>(*args)
 }
