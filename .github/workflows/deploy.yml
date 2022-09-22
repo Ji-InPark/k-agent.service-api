@@ -1,8 +1,6 @@
 name: Deploy to Elastic Beanstalk
 on:
   push:
-    branches:
-      - release
     tags:
       - \d+\.\d+\.\d+
 jobs:
@@ -51,5 +49,5 @@ jobs:
           application_name: MilitaryServiceCompanyChecker
           environment_name: MilitaryServiceCompanyChecker
           version_label: ${{ steps.extract_tag.outputs.tag }}
-          deployment_package: build/libs/*.jar
+          deployment_package: build/libs/MilitaryServiceCompanyChecker.jar
           wait_for_environment_recovery: 300
