@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanrychecker.company.controller.dto
+package com.example.militaryservicecompanychecker.company.controller.dto
 
 data class Company(
     val companyName: ArrayList<String?>,

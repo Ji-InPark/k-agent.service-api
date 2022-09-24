@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanrychecker.company.util
+package com.example.militaryservicecompanychecker.company.util
 
 object Util {
     fun Int.convertToServiceCategory(): String {

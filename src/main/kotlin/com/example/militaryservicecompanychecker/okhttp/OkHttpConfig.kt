@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanrychecker.okhttp
+package com.example.militaryservicecompanychecker.okhttp
 
 import okhttp3.OkHttpClient
 import org.springframework.context.annotation.Bean
