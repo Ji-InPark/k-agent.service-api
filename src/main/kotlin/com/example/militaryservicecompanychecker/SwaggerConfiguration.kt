@@ -12,7 +12,7 @@ class SwaggerConfiguration {
     @Bean
     fun getOpenAPI(): OpenAPI {
         return OpenAPI()
-            .servers(listOf(Server().apply { url = "/" }))
+            .servers(listOf(Server().apply { url = "/api/" }))
             .info(
                 Info().title("Military-Checker-api")
                     .description("병역특례 업체 확인 API")
