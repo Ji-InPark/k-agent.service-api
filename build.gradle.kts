@@ -20,6 +20,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jsoup:jsoup:1.15.3")
+    implementation("org.springdoc", "springdoc-openapi-kotlin", "1.6.9")
+    implementation("org.springdoc", "springdoc-openapi-ui", "1.6.9")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

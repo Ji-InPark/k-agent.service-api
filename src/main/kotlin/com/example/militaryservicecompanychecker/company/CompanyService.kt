@@ -1,7 +1,7 @@
-package com.example.militaryservicecompanrychecker.company
+package com.example.militaryservicecompanychecker.company
 
-import com.example.militaryservicecompanrychecker.company.controller.dto.Company
-import com.example.militaryservicecompanrychecker.company.util.Util.convertToServiceCategory
+import com.example.militaryservicecompanychecker.company.controller.dto.Company
+import com.example.militaryservicecompanychecker.company.util.Util.convertToServiceCategory
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -59,7 +59,7 @@ class CompanyService(
                 companyScale,
                 ArrayList()
             )
-            
+
             company.companyName.add(companyName)
             company.serviceTypes.add(entry.key.second.convertToServiceCategory())
 

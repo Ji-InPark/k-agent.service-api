@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanrychecker
+package com.example.militaryservicecompanychecker
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
