@@ -1,9 +1,0 @@
-version: 0.2
-phases:
-  build:
-    commands:
-      - chmod +x ./gradlew
-      - ./gradlew build
-artifacts:
-  files:
-    - build/libs/*.jar

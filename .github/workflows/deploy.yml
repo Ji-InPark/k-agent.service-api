@@ -1,0 +1,53 @@
+name: Deploy to Elastic Beanstalk
+on:
+  push:
+    tags:
+      - \d+\.\d+\.\d+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    env:
+      CI: 1
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ap-northeast-2
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Get tag name
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+        with:
+          fallback: 0.0.0
+        id: extract_tag
+      - name: Grant execute permissions for gradlew
+        run: chmod +x gradlew
+      - name: Build
+        shell: bash
+        env:
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+        run: >-
+          mkdir -p ~/.gradle/
+          
+          echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV          
+          
+          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties          
+          
+          ./gradlew bootJar
+      - name: Deploy
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ap-northeast-2
+          application_name: MilitaryChecker
+          environment_name: MilitaryChecker
+          version_label: ${{ steps.extract_tag.outputs.tag }}
+          deployment_package: build/libs/MilitaryServiceCompanyChecker.jar
+          wait_for_environment_recovery: 300
