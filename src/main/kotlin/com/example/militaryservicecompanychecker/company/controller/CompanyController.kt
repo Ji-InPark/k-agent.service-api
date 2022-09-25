@@ -12,8 +12,8 @@ class CompanyController(
     @Autowired
     private val companyService: CompanyService
 ) {
-    @GetMapping("/search/{companyName}")
-    fun searchCompany(@PathVariable("companyName") companyName: String): CompanyResponse {
-        return CompanyResponse(companyService.searchCompany(companyName))
+    @GetMapping("/search/{searchName}")
+    fun searchCompany(@PathVariable("searchName") searchName: String): CompanyResponse {
+        return CompanyResponse(companyService.searchCompany(searchName))
     }
 }

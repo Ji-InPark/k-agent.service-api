@@ -1,7 +1,7 @@
 package com.example.militaryservicecompanychecker.company.util
 
 object Util {
-    fun Int.convertToServiceCategory(): String {
+    fun Int.convertToServiceType(): String {
         return when (this) {
             1 -> "산업기능요원"
             2 -> "전문연구요원"

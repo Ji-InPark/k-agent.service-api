@@ -1,11 +1,16 @@
 package com.example.militaryservicecompanychecker.company.controller.dto
 
 data class Company(
-    val companyName: ArrayList<String?>,
+    val companyName: String?,
+
     val companyLocation: String?,
     val companyPhoneNumber: String?,
     val companyFaxNumber: String?,
+
     val companySector: String?,
     val companyScale: String?,
-    val serviceTypes: ArrayList<String>,
+
+    val serviceType: String?,
+
+    val companyKeyword: String?,
 )
