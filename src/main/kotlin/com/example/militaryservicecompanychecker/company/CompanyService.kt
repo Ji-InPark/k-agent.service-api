@@ -3,10 +3,13 @@ package com.example.militaryservicecompanychecker.company
 import com.example.militaryservicecompanychecker.company.controller.dto.Company
 import com.example.militaryservicecompanychecker.company.util.Util.convertToServiceType
 import okhttp3.FormBody
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
+import org.springframework.boot.json.GsonJsonParser
 import org.springframework.stereotype.Service
 
 @Service
@@ -58,6 +61,8 @@ class CompanyService(
 
         val companyKeyWord = getKeyWord(companyName, searchName)
 
+        val kreditJobKey = getKreditJobKey(companyKeyWord)
+
         return Company(
             companyName,
             companyLocation,
@@ -66,8 +71,22 @@ class CompanyService(
             companySector,
             companyScale,
             serviceType,
-            companyKeyWord
+            companyKeyWord,
+            kreditJobKey
         )
+    }
+
+    private fun getKreditJobKey(companyKeyWord: String): String {
+        val body =
+            """{"q": "$companyKeyWord"}""".toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val response = okHttpClient.newCall(
+            Request.Builder()
+                .url("https://kreditjob.com/api/search/company")
+                .post(body)
+                .build()
+        ).execute()
+
+        return GsonJsonParser().parseMap(response.body?.string())["PK_NM_HASH"].toString()
     }
 
     private fun getKeyWord(companyName: String?, searchName: String): String {

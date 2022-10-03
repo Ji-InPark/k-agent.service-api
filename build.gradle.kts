@@ -23,6 +23,7 @@ dependencies {
     implementation("org.springdoc", "springdoc-openapi-kotlin", "1.6.9")
     implementation("org.springdoc", "springdoc-openapi-ui", "1.6.9")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.google.code.gson:gson:2.9.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
