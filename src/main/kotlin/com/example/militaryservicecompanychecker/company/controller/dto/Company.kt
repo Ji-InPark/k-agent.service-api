@@ -13,4 +13,6 @@ data class Company(
     val serviceType: String?,
 
     val companyKeyword: String?,
+
+    val kreditJobKey: String?,
 )
