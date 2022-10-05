@@ -1,7 +1,7 @@
 package com.example.militaryservicecompanychecker.company.controller
 
-import com.example.militaryservicecompanychecker.company.CompanyService
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyResponse
+import com.example.militaryservicecompanychecker.company.service.CompanyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping

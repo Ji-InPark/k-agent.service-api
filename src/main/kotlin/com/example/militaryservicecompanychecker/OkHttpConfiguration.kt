@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.okhttp
+package com.example.militaryservicecompanychecker
 
 import okhttp3.OkHttpClient
 import org.springframework.context.annotation.Bean
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration
 import java.util.concurrent.TimeUnit
 
 @Configuration
-class OkHttpConfig {
+class OkHttpConfiguration {
     @Bean("okHttpClient")
     fun okHttpClient(): OkHttpClient {
         return OkHttpClient()
