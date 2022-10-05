@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -7,6 +8,7 @@ import javax.persistence.*
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     val id: Long,
 
     @Column(name = "name")
@@ -36,5 +38,5 @@ class Company(
     @Column(name = "keyword")
     val companyKeyword: String?,
 
-    val kreditJobKey: String?,
+    var kreditJobKey: String?,
 )

@@ -21,6 +21,8 @@ class CompanyService(
     fun getCompanies(searchName: String): List<Company> {
         val companies = companyRepository.findCompaniesByCompanyNameContaining(searchName)
 
+        companies.forEach { it.apply { kreditJobKey = getKreditJobKey(companyKeyword.toString()) } }
+
         return companies
     }
 
