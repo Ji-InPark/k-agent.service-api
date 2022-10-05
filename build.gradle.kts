@@ -5,6 +5,15 @@ plugins {
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    id("org.jetbrains.kotlin.plugin.jpa") version "1.5.21"
+}
+
+allOpen {
+    annotations(
+        "javax.persistence.Entity",
+        "javax.persistence.MappedSuperclass",
+        "javax.persistence.Embedabble"
+    )
 }
 
 group = "com.example"
@@ -16,6 +25,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -24,6 +34,7 @@ dependencies {
     implementation("org.springdoc", "springdoc-openapi-ui", "1.6.9")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.9.1")
+    implementation("com.h2database:h2:2.1.214")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
