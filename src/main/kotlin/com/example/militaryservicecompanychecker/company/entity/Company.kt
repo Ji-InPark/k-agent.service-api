@@ -1,7 +1,9 @@
 package com.example.militaryservicecompanychecker.company.entity
 
 import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
+import com.example.militaryservicecompanychecker.company.converter.SectorConverter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
@@ -30,7 +32,8 @@ class Company(
     val companyFaxNumber: String,
 
     @Column(name = "sector")
-    val companySector: String,
+    @Convert(converter = SectorConverter::class)
+    val companySector: Sector,
 
     @Column(name = "scale")
     val companyScale: String,
