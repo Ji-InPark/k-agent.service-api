@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
-@Table(name = "company", schema = "PUBLIC")
+@Table(name = "company", schema = "PUBLIC", indexes = [Index(columnList = "name")])
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

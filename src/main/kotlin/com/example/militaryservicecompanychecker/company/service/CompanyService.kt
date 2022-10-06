@@ -19,7 +19,7 @@ class CompanyService(
     }
 
     fun getCompanies(searchName: String): List<Company> {
-        val companies = companyRepository.findCompaniesByCompanyNameContaining(searchName)
+        val companies = companyRepository.findTop30ByCompanyNameContaining(searchName)
 
         companies.forEach { it.apply { kreditJobKey = getKreditJobKey(companyKeyword.toString()) } }
 
