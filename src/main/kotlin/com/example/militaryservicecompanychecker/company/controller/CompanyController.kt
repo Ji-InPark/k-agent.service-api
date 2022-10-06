@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.controller
 
+import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyResponse
 import com.example.militaryservicecompanychecker.company.service.CompanyService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,5 +18,10 @@ class CompanyController(
     @GetMapping("/search/{searchName}")
     fun searchCompany(@PathVariable("searchName") searchName: String): CompanyResponse {
         return CompanyResponse(companyService.searchCompany(searchName))
+    }
+
+    @GetMapping("/government-locations")
+    fun getGovernmentLocations(): Array<GovernmentLocation> {
+        return companyService.getGovernmentLocations()
     }
 }
