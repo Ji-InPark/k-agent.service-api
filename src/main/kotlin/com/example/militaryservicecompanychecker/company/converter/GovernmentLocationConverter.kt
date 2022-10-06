@@ -9,6 +9,6 @@ class GovernmentLocationConverter : AttributeConverter<GovernmentLocation, Strin
     }
 
     override fun convertToEntityAttribute(dbData: String?): GovernmentLocation {
-        return GovernmentLocation.valueOf(dbData.toString())
+        return GovernmentLocation[dbData.toString()]!!
     }
 }

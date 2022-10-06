@@ -9,6 +9,6 @@ class SectorConverter : AttributeConverter<Sector, String> {
     }
 
     override fun convertToEntityAttribute(dbData: String?): Sector {
-        return Sector.valueOf(dbData.toString())
+        return Sector[dbData.toString()]!!
     }
 }
