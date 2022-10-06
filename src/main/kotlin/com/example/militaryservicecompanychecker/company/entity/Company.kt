@@ -38,5 +38,6 @@ class Company(
     @Column(name = "keyword")
     val companyKeyword: String?,
 
+    @Column(name = "kreditjob_key")
     var kreditJobKey: String?,
 )
