@@ -1,5 +1,9 @@
 package com.example.militaryservicecompanychecker.company.entity
 
+import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.constants.Sector
+import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
+import com.example.militaryservicecompanychecker.company.converter.SectorConverter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
@@ -12,32 +16,34 @@ class Company(
     val id: Long,
 
     @Column(name = "name")
-    val companyName: String?,
+    val companyName: String,
 
     @Column(name = "government_location")
-    val governmentLocation: String?,
+    @Convert(converter = GovernmentLocationConverter::class)
+    val governmentLocation: GovernmentLocation,
 
     @Column(name = "location")
-    val companyLocation: String?,
+    val companyLocation: String,
 
     @Column(name = "phone_number")
-    val companyPhoneNumber: String?,
+    val companyPhoneNumber: String,
 
     @Column(name = "fax_number")
-    val companyFaxNumber: String?,
+    val companyFaxNumber: String,
 
     @Column(name = "sector")
-    val companySector: String?,
+    @Convert(converter = SectorConverter::class)
+    val companySector: Sector,
 
     @Column(name = "scale")
-    val companyScale: String?,
+    val companyScale: String,
 
     @Column(name = "service_type")
-    val serviceType: String?,
+    val serviceType: String,
 
     @Column(name = "keyword")
-    val companyKeyword: String?,
+    val companyKeyword: String,
 
     @Column(name = "kreditjob_key")
-    var kreditJobKey: String?,
+    var kreditJobKey: String,
 )
