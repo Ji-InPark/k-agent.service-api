@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CompanyRepository : JpaRepository<Company, String> {
-    fun findTop30ByCompanyNameContaining(companyName: String): List<Company>
+    fun findByCompanyNameContaining(companyName: String): List<Company>
 }
