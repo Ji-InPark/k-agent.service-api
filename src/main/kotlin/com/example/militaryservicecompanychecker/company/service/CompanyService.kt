@@ -1,6 +1,7 @@
 package com.example.militaryservicecompanychecker.company.service
 
 import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
 import okhttp3.OkHttpClient
@@ -17,5 +18,9 @@ class CompanyService(
 
     fun getGovernmentLocations(): Array<GovernmentLocation> {
         return GovernmentLocation.values()
+    }
+
+    fun getSectors(): Array<Sector> {
+        return Sector.values()
     }
 }
