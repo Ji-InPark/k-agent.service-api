@@ -8,4 +8,12 @@ object Util {
             else -> "승선근무예비역"
         }
     }
+
+    inline fun <reified T : Enum<T>> safeValueOf(type: String?): T? {
+        return try {
+            java.lang.Enum.valueOf(T::class.java, type)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
+    }
 }
