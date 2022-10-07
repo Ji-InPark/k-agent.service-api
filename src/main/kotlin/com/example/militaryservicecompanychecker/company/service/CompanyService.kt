@@ -19,7 +19,7 @@ class CompanyService(
         governmentLocation: GovernmentLocation?,
         sector: Sector?
     ): List<Company> {
-        val companies = companyRepository.findByCompanyNameContaining(searchName)
+        val companies = searchCompany(searchName)
 
         return companies
             .filter {
