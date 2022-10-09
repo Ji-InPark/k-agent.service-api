@@ -10,16 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin(origins = ["https://k-agent.services/"])
+@CrossOrigin(origins = ["https://k-agent.services/", "http://localhost:3000/"])
 class CompanyController(
     @Autowired
     private val companyService: CompanyService
 ) {
-    @GetMapping("/search/{searchName}")
-    fun searchCompany(@PathVariable("searchName") searchName: String): CompanyResponse {
-        return CompanyResponse(companyService.searchCompany(searchName))
-    }
-
     @PostMapping("/search")
     fun searchCompany(@RequestBody request: CompanyRequest): CompanyResponse {
         return CompanyResponse(
