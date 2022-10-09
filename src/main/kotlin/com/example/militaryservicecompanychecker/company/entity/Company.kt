@@ -4,7 +4,6 @@ import com.example.militaryservicecompanychecker.company.constants.GovernmentLoc
 import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
-import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -12,7 +11,6 @@ import javax.persistence.*
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     val id: Long,
 
     @Column(name = "name")
