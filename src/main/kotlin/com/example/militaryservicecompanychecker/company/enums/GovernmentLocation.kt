@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.company.constants
+package com.example.militaryservicecompanychecker.company.enums
 
 enum class GovernmentLocation(val location: String) {
     강원("강원"),

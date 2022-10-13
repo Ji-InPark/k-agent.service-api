@@ -1,8 +1,8 @@
 package com.example.militaryservicecompanychecker.company.service
 
-import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
-import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.entity.Company
+import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
 import org.springframework.stereotype.Service
 

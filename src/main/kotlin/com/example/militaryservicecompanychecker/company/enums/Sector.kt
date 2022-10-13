@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.company.constants
+package com.example.militaryservicecompanychecker.company.enums
 
 enum class Sector(val sector: String) {
     게임SW("게임S/W"),

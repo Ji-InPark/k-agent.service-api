@@ -1,9 +1,9 @@
 package com.example.militaryservicecompanychecker.company.controller
 
-import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
-import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyRequest
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyResponse
+import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.service.CompanyService
 import com.example.militaryservicecompanychecker.company.util.Util.safeValueOf
 import org.springframework.beans.factory.annotation.Autowired
