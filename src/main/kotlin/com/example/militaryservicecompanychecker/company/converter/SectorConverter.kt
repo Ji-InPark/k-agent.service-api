@@ -1,6 +1,6 @@
 package com.example.militaryservicecompanychecker.company.converter
 
-import com.example.militaryservicecompanychecker.company.constants.Sector
+import com.example.militaryservicecompanychecker.company.enums.Sector
 import javax.persistence.AttributeConverter
 
 class SectorConverter : AttributeConverter<Sector, String> {

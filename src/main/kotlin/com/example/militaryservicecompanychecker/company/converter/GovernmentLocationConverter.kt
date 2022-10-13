@@ -1,6 +1,6 @@
 package com.example.militaryservicecompanychecker.company.converter
 
-import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import javax.persistence.AttributeConverter
 
 class GovernmentLocationConverter : AttributeConverter<GovernmentLocation, String> {

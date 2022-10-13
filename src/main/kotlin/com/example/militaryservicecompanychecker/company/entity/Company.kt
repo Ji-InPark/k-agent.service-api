@@ -1,9 +1,9 @@
 package com.example.militaryservicecompanychecker.company.entity
 
-import com.example.militaryservicecompanychecker.company.constants.GovernmentLocation
-import com.example.militaryservicecompanychecker.company.constants.Sector
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
+import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
+import com.example.militaryservicecompanychecker.company.enums.Sector
 import javax.persistence.*
 
 @Entity
