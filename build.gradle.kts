@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.5.21"
+    kotlin("kapt") version "1.7.20"
 }
 
 allOpen {
@@ -35,7 +36,12 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.9.1")
     implementation("com.h2database:h2:2.1.214")
+    
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("com.querydsl", "querydsl-jpa", "5.0.0")
+    implementation("com.querydsl", "querydsl-kotlin", "5.0.0")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 }
 
 tasks.withType<KotlinCompile> {
