@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.controller
 
+import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteRequest
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyRequest
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyResponse
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
@@ -15,6 +16,13 @@ class CompanyController(
     @Autowired
     private val companyService: CompanyService
 ) {
+    @PostMapping("/search/autocomplete")
+    fun searchCompanyByRegex(@RequestBody request: CompanyAutoCompleteRequest): CompanyResponse {
+        return CompanyResponse(
+            companyService.searchCompanyByRegex(request.regex)
+        )
+    }
+
     @PostMapping("/search")
     fun searchCompany(@RequestBody request: CompanyRequest): CompanyResponse {
         return CompanyResponse(

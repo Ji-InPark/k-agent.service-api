@@ -12,8 +12,8 @@ class CompanyService(
     private val companyRepository: CompanyRepository,
     private val customCompanyRepository: CustomCompanyRepository,
 ) {
-    fun searchCompany(searchName: String): List<Company> {
-        return companyRepository.findByCompanyNameContaining(searchName)
+    fun searchCompanyByRegex(regex: String): List<Company> {
+        return companyRepository.findTop5ByCompanyNameRegex(regex)
     }
 
     fun searchCompany(
