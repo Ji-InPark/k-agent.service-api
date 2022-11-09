@@ -4,6 +4,7 @@ import com.example.militaryservicecompanychecker.company.converter.GovernmentLoc
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -24,9 +25,11 @@ class Company(
     val companyLocation: String,
 
     @Column(name = "phone_number")
+    @JsonIgnore
     val companyPhoneNumber: String,
 
     @Column(name = "fax_number")
+    @JsonIgnore
     val companyFaxNumber: String,
 
     @Column(name = "sector")
