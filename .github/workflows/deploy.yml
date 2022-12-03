@@ -46,8 +46,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ap-northeast-2
-          application_name: MilitaryChecker
-          environment_name: MilitaryChecker
+          application_name: K-Agent API
+          environment_name: K-Agent-API
           version_label: ${{ steps.extract_tag.outputs.tag }}
           deployment_package: build/libs/MilitaryServiceCompanyChecker.jar
           wait_for_environment_recovery: 300
