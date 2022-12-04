@@ -1,0 +1,3 @@
+./gradlew bootJar
+
+flyctl deploy
