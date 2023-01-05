@@ -31,6 +31,7 @@ jobs:
           echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties          
           
           ./gradlew bootJar
-      - name: Deploy
+      - name: Set flyio
         uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Deploy
         run: flyctl deploy --remote-only
