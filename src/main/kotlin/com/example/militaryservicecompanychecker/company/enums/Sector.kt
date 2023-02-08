@@ -1,7 +1,7 @@
 package com.example.militaryservicecompanychecker.company.enums
 
 enum class Sector(val sector: String) {
-    게임SW("게임S/W"),
+    게임SW("게임SW"),
     과기원("과기원"),
     과기원부설연구소("과기원부설연구소"),
     국가기관_등_연구소("국가기관_등_연구소"),
