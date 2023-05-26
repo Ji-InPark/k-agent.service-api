@@ -8,13 +8,11 @@ import com.example.militaryservicecompanychecker.company.enums.GovernmentLocatio
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.service.CompanyService
 import com.example.militaryservicecompanychecker.company.util.Util.safeValueOf
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @CrossOrigin(origins = ["https://k-agent.services/", "http://localhost:3000/"])
 class CompanyController(
-    @Autowired
     private val companyService: CompanyService
 ) {
     @PostMapping("/search/autocomplete")
