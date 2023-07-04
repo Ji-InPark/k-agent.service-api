@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.entity
 
+import com.example.militaryservicecompanychecker.common.BaseEntity
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
@@ -10,41 +11,37 @@ import javax.persistence.*
 @Entity
 @Table(name = "company", schema = "PUBLIC", indexes = [Index(columnList = "name")])
 class Company(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
-
     @Column(name = "name")
-    val companyName: String,
+    var companyName: String,
 
     @Column(name = "government_location")
     @Convert(converter = GovernmentLocationConverter::class)
-    val governmentLocation: GovernmentLocation,
+    var governmentLocation: GovernmentLocation,
 
     @Column(name = "location")
-    val companyLocation: String,
+    var companyLocation: String,
 
     @Column(name = "phone_number")
     @JsonIgnore
-    val companyPhoneNumber: String,
+    var companyPhoneNumber: String,
 
     @Column(name = "fax_number")
     @JsonIgnore
-    val companyFaxNumber: String,
+    var companyFaxNumber: String,
 
     @Column(name = "sector")
     @Convert(converter = SectorConverter::class)
-    val companySector: Sector,
+    var companySector: Sector,
 
     @Column(name = "scale")
-    val companyScale: String,
+    var companyScale: String,
 
     @Column(name = "service_type")
-    val serviceType: String,
+    var serviceType: String,
 
     @Column(name = "keyword")
-    val companyKeyword: String,
+    var companyKeyword: String,
 
     @Column(name = "kreditjob_key")
-    var kreditJobKey: String,
-)
+    var kreditJobKey: String?,
+) : BaseEntity()
