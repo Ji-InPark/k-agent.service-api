@@ -1,19 +1,44 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - common
+      prod:
+        - common
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.postgresql.Driver
 server:
   servlet:
     context-path: /api
+
+---
+
 spring:
-  h2:
-    console:
-      enabled: true
+  config:
+    activate:
+    on-profile: prod
   datasource:
-    url: jdbc:h2:mem:default
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
+    url: { DATABASE_URL }
+    username: { DATABASE_USERNAME }
+    password: { DATABASE_PASSWORD }
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://localhost:1234/k-agent-database
+    username: myuser
+    password: mypassword
