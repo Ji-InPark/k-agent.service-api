@@ -42,4 +42,9 @@ class CompanyController(
     fun getSectors(): Array<Sector> {
         return companyService.getSectors()
     }
+
+    @GetMapping("/kreditjob/{id}")
+    fun getKreditJobKey(@PathVariable("id") id: Long): String {
+        return companyService.getKreditJobKeyAndUpdateToCompany(id)
+    }
 }

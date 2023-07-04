@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 interface CompanyRepository : JpaRepository<Company, String> {
@@ -20,4 +21,6 @@ interface CompanyRepository : JpaRepository<Company, String> {
         @Param("governmentLocation") governmentLocation: String?,
         @Param("sector") companySector: String?
     ): List<Company>
+
+    fun findById(id: Long): Optional<Company>
 }
