@@ -26,7 +26,7 @@ server:
 spring:
   config:
     activate:
-    on-profile: prod
+      on-profile: prod
   datasource:
     url: { DATABASE_URL }
     username: { DATABASE_USERNAME }
