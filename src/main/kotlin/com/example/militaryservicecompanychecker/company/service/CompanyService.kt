@@ -19,10 +19,10 @@ class CompanyService(
         governmentLocation: GovernmentLocation?,
         sector: Sector?
     ): List<Company> {
-        return companyRepository.findAllByCompanyNameAndGovernmentLocationOrCompanySector(
+        return companyRepository.findAllByGovernmentLocationOrCompanySectorAndCompanyName(
             searchName,
-            governmentLocation,
-            sector
+            governmentLocation?.toString(),
+            sector?.toString()
         )
     }
 
