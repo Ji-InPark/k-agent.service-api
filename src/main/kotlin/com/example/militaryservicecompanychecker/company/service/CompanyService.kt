@@ -4,13 +4,11 @@ import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
-import com.example.militaryservicecompanychecker.company.repository.CustomCompanyRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CompanyService(
     private val companyRepository: CompanyRepository,
-    private val customCompanyRepository: CustomCompanyRepository,
 ) {
     fun searchCompanyByRegex(regex: String): List<Company> {
         return companyRepository.findTop5ByCompanyNameRegex(regex)
@@ -21,7 +19,7 @@ class CompanyService(
         governmentLocation: GovernmentLocation?,
         sector: Sector?
     ): List<Company> {
-        return customCompanyRepository.findCompaniesByNameAndSectorAndGovernmentLocation(
+        return companyRepository.findAllByCompanyNameAndGovernmentLocationOrCompanySector(
             searchName,
             governmentLocation,
             sector

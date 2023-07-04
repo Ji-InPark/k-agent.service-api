@@ -36,12 +36,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.9.1")
     implementation("org.postgresql:postgresql:42.6.0")
-    
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    implementation("com.querydsl", "querydsl-jpa", "5.0.0")
-    implementation("com.querydsl", "querydsl-kotlin", "5.0.0")
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
