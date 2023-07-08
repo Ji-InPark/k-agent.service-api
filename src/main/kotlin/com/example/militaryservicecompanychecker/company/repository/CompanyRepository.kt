@@ -14,7 +14,7 @@ interface CompanyRepository : JpaRepository<Company, String> {
     fun findTop5ByCompanyNameRegex(@Param("regex") companyName: String): List<Company>
 
     @Query(
-        value = "SELECT * FROM company WHERE name like %:name% OR (sector = :sector AND government_location = :governmentLocation)",
+        value = "SELECT * FROM company WHERE name ~ :name AND sector = :sector AND government_location = :governmentLocation",
         nativeQuery = true
     )
     fun findAllByGovernmentLocationOrCompanySectorAndCompanyName(
