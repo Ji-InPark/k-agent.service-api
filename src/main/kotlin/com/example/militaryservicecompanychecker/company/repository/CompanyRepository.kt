@@ -10,7 +10,7 @@ import java.util.*
 
 @Repository
 interface CompanyRepository : JpaRepository<Company, String> {
-    @Query(value = "SELECT TOP 5 * FROM company WHERE (name REGEXP :regex)", nativeQuery = true)
+    @Query(value = "SELECT * FROM company WHERE name ~ :regex LIMIT 5", nativeQuery = true)
     fun findTop5ByCompanyNameRegex(@Param("regex") companyName: String): List<Company>
 
     @Query(
