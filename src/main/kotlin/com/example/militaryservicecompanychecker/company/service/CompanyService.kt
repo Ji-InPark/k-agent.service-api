@@ -117,4 +117,8 @@ class CompanyService(
 
         return companies
     }
+
+    fun getServiceTypes(): Array<ServiceType> {
+        return ServiceType.values()
+    }
 }
