@@ -32,9 +32,9 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: { DATABASE_URL }
-    username: { DATABASE_USERNAME }
-    password: { DATABASE_PASSWORD }
+    url: "${DATABASE_URL}"
+    username: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
 
 ---
 
