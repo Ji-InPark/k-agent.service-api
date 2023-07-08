@@ -7,6 +7,7 @@ import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toGovernmentLocation
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
+import com.example.militaryservicecompanychecker.company.util.Util.toCompanyKeyword
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -88,29 +89,28 @@ class CompanyService(
         file: MultipartFile,
         serviceType: ServiceType
     ): MutableList<Company> {
-        val csvFile = CSVParser.parse(
+        val records = CSVParser.parse(
             file.inputStream,
             Charsets.UTF_8,
             CSVFormat.DEFAULT
-        )
-        val records = csvFile.records
+        ).records
         val headerMap = records[0].toList().withIndex().associate { it.value to it.index }
 
         val companies = mutableListOf<Company>()
 
         for (i in 1.until(records.size)) {
-            val companyName = records[i][headerMap["업체명"]!!]
+            val record = records[i]
+            val companyName = record[headerMap["업체명"]!!]
             val newCompany = Company(
                 companyName = companyName,
-                governmentLocation = records[i][headerMap["지방청"]!!].toGovernmentLocation(),
-                companyLocation = records[i][headerMap["주소"]!!],
-                companyPhoneNumber = records[i][headerMap["전화번호"]!!],
-                companyFaxNumber = records[i][headerMap["팩스번호"]!!],
-                companySector = records[i][headerMap["업종"]!!].toSector(),
-                companyScale = records[i][headerMap["기업규모"]!!],
+                governmentLocation = record[headerMap["지방청"]!!].toGovernmentLocation(),
+                companyLocation = record[headerMap["주소"]!!],
+                companyPhoneNumber = record[headerMap["전화번호"]!!],
+                companyFaxNumber = record[headerMap["팩스번호"]!!],
+                companySector = record[headerMap["업종"]!!].toSector(),
+                companyScale = record[headerMap["기업규모"]!!],
                 serviceType = serviceType,
-                companyKeyword = companyName.replace("(주)", "").replace("(유)", "")
-                    .replace("주식회사", "")
+                companyKeyword = companyName.toCompanyKeyword()
             )
             companies.add(newCompany)
         }
