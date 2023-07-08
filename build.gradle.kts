@@ -35,13 +35,11 @@ dependencies {
     implementation("org.springdoc", "springdoc-openapi-ui", "1.6.9")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("com.google.code.gson:gson:2.9.1")
-    implementation("com.h2database:h2:2.1.214")
-    
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.postgresql:postgresql:42.6.0")
+    implementation("org.apache.commons:commons-csv:1.10.0")
+    implementation("org.springframework.boot:spring-boot-starter-security:3.1.1")
 
-    implementation("com.querydsl", "querydsl-jpa", "5.0.0")
-    implementation("com.querydsl", "querydsl-kotlin", "5.0.0")
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {
