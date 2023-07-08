@@ -3,13 +3,20 @@ package com.example.militaryservicecompanychecker.company.service
 import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
+import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
+import com.example.militaryservicecompanychecker.company.util.EnumUtil.toGovernmentLocation
+import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVParser
 import org.springframework.boot.json.GsonJsonParser
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
+import javax.transaction.Transactional
 
 @Service
 class CompanyService(
@@ -63,5 +70,51 @@ class CompanyService(
         ).execute()
 
         return GsonJsonParser().parseMap(response.body?.string())["PK_NM_HASH"].toString()
+    }
+
+    @Transactional
+    fun deleteAndCreateCompanyByFile(
+        file: MultipartFile,
+        serviceType: ServiceType
+    ): MutableList<Company> {
+        companyRepository.deleteByServiceType(serviceType)
+
+        val companies = createCompanyListByFile(file, serviceType)
+
+        return companyRepository.saveAllAndFlush(companies)
+    }
+
+    private fun createCompanyListByFile(
+        file: MultipartFile,
+        serviceType: ServiceType
+    ): MutableList<Company> {
+        val csvFile = CSVParser.parse(
+            file.inputStream,
+            Charsets.UTF_8,
+            CSVFormat.DEFAULT
+        )
+        val records = csvFile.records
+        val headerMap = records[0].toList().withIndex().associate { it.value to it.index }
+
+        val companies = mutableListOf<Company>()
+
+        for (i in 1.until(records.size)) {
+            val companyName = records[i][headerMap["업체명"]!!]
+            val newCompany = Company(
+                companyName = companyName,
+                governmentLocation = records[i][headerMap["지방청"]!!].toGovernmentLocation(),
+                companyLocation = records[i][headerMap["주소"]!!],
+                companyPhoneNumber = records[i][headerMap["전화번호"]!!],
+                companyFaxNumber = records[i][headerMap["팩스번호"]!!],
+                companySector = records[i][headerMap["업종"]!!].toSector(),
+                companyScale = records[i][headerMap["기업규모"]!!],
+                serviceType = serviceType,
+                companyKeyword = companyName.replace("(주)", "").replace("(유)", "")
+                    .replace("주식회사", "")
+            )
+            companies.add(newCompany)
+        }
+
+        return companies
     }
 }

@@ -6,6 +6,7 @@ import com.example.militaryservicecompanychecker.company.converter.SectorConvert
 import com.example.militaryservicecompanychecker.company.converter.ServiceTypeConverter
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
+import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
@@ -39,11 +40,11 @@ class Company(
 
     @Column(name = "service_type")
     @Convert(converter = ServiceTypeConverter::class)
-    var serviceType: String,
+    var serviceType: ServiceType,
 
     @Column(name = "keyword")
     var companyKeyword: String,
-
+) : BaseEntity() {
     @Column(name = "kreditjob_key")
-    var kreditJobKey: String?,
-) : BaseEntity()
+    var kreditJobKey: String? = null
+}
