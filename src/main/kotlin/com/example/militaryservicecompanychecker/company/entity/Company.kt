@@ -3,6 +3,7 @@ package com.example.militaryservicecompanychecker.company.entity
 import com.example.militaryservicecompanychecker.common.BaseEntity
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
+import com.example.militaryservicecompanychecker.company.converter.ServiceTypeConverter
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -37,6 +38,7 @@ class Company(
     var companyScale: String,
 
     @Column(name = "service_type")
+    @Convert(converter = ServiceTypeConverter::class)
     var serviceType: String,
 
     @Column(name = "keyword")
