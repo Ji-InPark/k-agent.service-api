@@ -33,11 +33,14 @@ class CompanyService(
         governmentLocation: GovernmentLocation?,
         sector: Sector?
     ): List<Company> {
-        return companyRepository.findAllByGovernmentLocationOrCompanySectorAndCompanyName(
-            searchName,
-            governmentLocation?.toString(),
-            sector?.toString()
-        )
+        return if (governmentLocation == null && sector == null)
+            companyRepository.findAllByCompanyNameContains(searchName)
+        else
+            companyRepository.findAllByGovernmentLocationOrCompanySectorAndCompanyName(
+                searchName,
+                governmentLocation.toString(),
+                sector.toString()
+            )
     }
 
     fun getGovernmentLocations(): Array<GovernmentLocation> {

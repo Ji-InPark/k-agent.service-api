@@ -23,6 +23,8 @@ interface CompanyRepository : JpaRepository<Company, String> {
         @Param("sector") companySector: String?
     ): List<Company>
 
+    fun findAllByCompanyNameContains(companyName: String): List<Company>
+
     fun findById(id: Long): Optional<Company>
 
     fun deleteByServiceType(serviceType: ServiceType)
