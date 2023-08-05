@@ -16,7 +16,8 @@ interface CompanyRepository : JpaRepository<Company, String> {
     @Query(
         value = "SELECT * FROM company WHERE name ~ :name " +
                 "AND (:sector is null or sector = :sector) " +
-                "AND (:governmentLocation is null or government_location = :governmentLocation)",
+                "AND (:governmentLocation is null or government_location = :governmentLocation)" +
+                "ORDER BY id ASC",
         nativeQuery = true
     )
     fun findAllByGovernmentLocationOrCompanySectorAndCompanyName(
@@ -25,7 +26,7 @@ interface CompanyRepository : JpaRepository<Company, String> {
         @Param("sector") companySector: String?
     ): List<Company>
 
-    fun findAllByCompanyNameContains(companyName: String): List<Company>
+    fun findAllByCompanyNameContainsOrderByIdAsc(companyName: String): List<Company>
 
     fun findById(id: Long): Optional<Company>
 

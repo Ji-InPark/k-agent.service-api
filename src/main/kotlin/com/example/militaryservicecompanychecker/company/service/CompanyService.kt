@@ -34,7 +34,7 @@ class CompanyService(
         sector: Sector?
     ): List<Company> {
         return if (governmentLocation == null && sector == null)
-            companyRepository.findAllByCompanyNameContains(searchName)
+            companyRepository.findAllByCompanyNameContainsOrderByIdAsc(searchName)
         else
             companyRepository.findAllByGovernmentLocationOrCompanySectorAndCompanyName(
                 searchName,
