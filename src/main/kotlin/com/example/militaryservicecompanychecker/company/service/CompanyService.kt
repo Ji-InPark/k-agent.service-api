@@ -56,7 +56,7 @@ class CompanyService(
 
         if (company.kreditJobKey != null) return company.kreditJobKey!!
 
-        val kreditJobKey = getKreditJobKey(company.companyName)
+        val kreditJobKey = getKreditJobKey(company.companyKeyword)
         company.kreditJobKey = kreditJobKey
         companyRepository.saveAndFlush(company)
 
