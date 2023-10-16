@@ -8,15 +8,16 @@ import com.example.militaryservicecompanychecker.company.repository.CompanyRepos
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toGovernmentLocation
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
 import com.example.militaryservicecompanychecker.company.util.Util.toCompanyKeyword
+import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.apache.commons.csv.CSVFormat
-import org.apache.commons.csv.CSVParser
+import okhttp3.Response
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.springframework.boot.json.GsonJsonParser
 import org.springframework.stereotype.Service
-import org.springframework.web.multipart.MultipartFile
+import java.io.ByteArrayInputStream
 import javax.transaction.Transactional
 
 @Service
@@ -63,6 +64,31 @@ class CompanyService(
         return kreditJobKey
     }
 
+    fun test() {
+        val serviceTypeMap = mapOf(
+            1 to ServiceType.산업기능요원,
+            2 to ServiceType.전문연구요원,
+            3 to ServiceType.승선근무예비역,
+        )
+
+        for (serviceTypeKey in 1..3) {
+            val body = FormBody.Builder()
+                .add("eopjong_gbcd", "3")
+                .build()
+            val response = okHttpClient.newCall(
+                Request.Builder()
+                    .url("https://work.mma.go.kr/caisBYIS/search/downloadBYJJEopCheExcel.do")
+                    .post(body)
+                    .build()
+            ).execute()
+
+            val stream = ByteArrayInputStream(response.body?.bytes())
+            val workbook = HSSFWorkbook(stream)
+
+        }
+
+    }
+
     private fun getKreditJobKey(companyKeyword: String): String {
         val body =
             """{"q": "$companyKeyword"}""".toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
@@ -77,41 +103,52 @@ class CompanyService(
     }
 
     @Transactional
-    fun deleteAndCreateCompanyByFile(
-        file: MultipartFile,
-        serviceType: ServiceType
-    ): MutableList<Company> {
-        companyRepository.deleteByServiceType(serviceType)
+    fun deleteAndCreateCompanyByFile(): MutableList<Company> {
+        companyRepository.deleteAllInBatch()
 
-        val companies = createCompanyListByFile(file, serviceType)
+        val companies = createCompaniesFromBYIS()
 
         return companyRepository.saveAllAndFlush(companies)
     }
 
-    private fun createCompanyListByFile(
-        file: MultipartFile,
-        serviceType: ServiceType
-    ): MutableList<Company> {
-        val records = CSVParser.parse(
-            file.inputStream,
-            Charsets.UTF_8,
-            CSVFormat.DEFAULT
-        ).records
-        val headerMap = records[0].toList().withIndex().associate { it.value to it.index }
+    private fun createCompaniesFromBYIS(): MutableList<Company> {
+        val serviceTypeMap = mapOf(
+            1 to ServiceType.산업기능요원,
+            2 to ServiceType.전문연구요원,
+            3 to ServiceType.승선근무예비역,
+        )
 
         val companies = mutableListOf<Company>()
 
-        for (i in 1.until(records.size)) {
-            val record = records[i]
-            val companyName = record[headerMap["업체명"]!!]
+        for ((key, value) in serviceTypeMap) {
+            val response = requestCompanyInfosToBYIS(key)
+            val workbook = convertBYISResponseToWorkbook(response)
+            companies.addAll(createCompanies(workbook, value))
+        }
+
+        return companies
+    }
+
+    private fun createCompanies(
+        workbook: HSSFWorkbook,
+        serviceType: ServiceType
+    ): MutableList<Company> {
+        val sheet = workbook.getSheetAt(0)
+        val headerMap =
+            sheet.getRow(0).toList().withIndex().associate { it.value.toString() to it.index }
+
+        val companies = mutableListOf<Company>()
+        for (i in 1.until(sheet.physicalNumberOfRows)) {
+            val row = sheet.getRow(i)
+            val companyName = row.getCell(headerMap["업체명"]!!).stringCellValue
             val newCompany = Company(
                 companyName = companyName,
-                governmentLocation = record[headerMap["지방청"]!!].toGovernmentLocation(),
-                companyLocation = record[headerMap["주소"]!!],
-                companyPhoneNumber = record[headerMap["전화번호"]!!],
-                companyFaxNumber = record[headerMap["팩스번호"]!!],
-                companySector = record[headerMap["업종"]!!].toSector(),
-                companyScale = record[headerMap["기업규모"]!!],
+                governmentLocation = row.getCell(headerMap["지방청"]!!).stringCellValue.toGovernmentLocation(),
+                companyLocation = row.getCell(headerMap["주소"]!!).stringCellValue,
+                companyPhoneNumber = row.getCell(headerMap["전화번호"]!!).stringCellValue,
+                companyFaxNumber = row.getCell(headerMap["팩스번호"]!!).stringCellValue,
+                companySector = row.getCell(headerMap["업종"]!!).stringCellValue.toSector(),
+                companyScale = row.getCell(headerMap["기업규모"]!!).stringCellValue,
                 serviceType = serviceType,
                 companyKeyword = companyName.toCompanyKeyword()
             )
@@ -119,6 +156,23 @@ class CompanyService(
         }
 
         return companies
+    }
+
+    private fun convertBYISResponseToWorkbook(response: Response): HSSFWorkbook {
+        val stream = ByteArrayInputStream(response.body?.bytes())
+        return HSSFWorkbook(stream)
+    }
+
+    private fun requestCompanyInfosToBYIS(serviceTypeNumber: Int): Response {
+        val body = FormBody.Builder()
+            .add("eopjong_gbcd", serviceTypeNumber.toString())
+            .build()
+        return okHttpClient.newCall(
+            Request.Builder()
+                .url("https://work.mma.go.kr/caisBYIS/search/downloadBYJJEopCheExcel.do")
+                .post(body)
+                .build()
+        ).execute()
     }
 
     fun getServiceTypes(): Array<ServiceType> {
