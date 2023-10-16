@@ -8,11 +8,10 @@ import com.example.militaryservicecompanychecker.company.repository.CompanyRepos
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toGovernmentLocation
 import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
 import com.example.militaryservicecompanychecker.company.util.Util.toCompanyKeyword
+import com.google.gson.internal.LinkedTreeMap
 import okhttp3.FormBody
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.springframework.boot.json.GsonJsonParser
@@ -90,16 +89,18 @@ class CompanyService(
     }
 
     private fun getKreditJobKey(companyKeyword: String): String {
-        val body =
-            """{"q": "$companyKeyword"}""".toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val query =
+            "q=$companyKeyword&index=0&size=5"
         val response = okHttpClient.newCall(
             Request.Builder()
-                .url("https://kreditjob.com/api/search/company")
-                .post(body)
+                .url("https://insight.wanted.co.kr/api/search/autocomplete?$query")
+                .get()
                 .build()
         ).execute()
 
-        return GsonJsonParser().parseMap(response.body?.string())["PK_NM_HASH"].toString()
+        val docs = GsonJsonParser().parseMap(response.body?.string())["docs"] as ArrayList<*>
+        val companyInfo = docs[0] as LinkedTreeMap<*, *>
+        return companyInfo["regNoHash"].toString()
     }
 
     @Transactional
