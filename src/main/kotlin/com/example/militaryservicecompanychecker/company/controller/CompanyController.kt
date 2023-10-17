@@ -51,8 +51,14 @@ class CompanyController(
         return companyService.getServiceTypes()
     }
 
+    // todo will remove after migration
     @GetMapping("/kreditjob/{id}")
     fun getKreditJobKey(@PathVariable("id") id: Long): String {
+        return companyService.getKreditJobKeyAndUpdateToCompany(id)
+    }
+
+    @GetMapping("/wanted-insight/{id}")
+    fun getWantedInsightKey(@PathVariable("id") id: Long): String {
         return companyService.getKreditJobKeyAndUpdateToCompany(id)
     }
 
