@@ -64,6 +64,7 @@ class CompanyService(
         return kreditJobKey
     }
 
+    // todo rename
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
@@ -74,31 +75,6 @@ class CompanyService(
         companyRepository.saveAndFlush(company)
 
         return kreditJobKey
-    }
-
-    fun test() {
-        val serviceTypeMap = mapOf(
-            1 to ServiceType.산업기능요원,
-            2 to ServiceType.전문연구요원,
-            3 to ServiceType.승선근무예비역,
-        )
-
-        for (serviceTypeKey in 1..3) {
-            val body = FormBody.Builder()
-                .add("eopjong_gbcd", "3")
-                .build()
-            val response = okHttpClient.newCall(
-                Request.Builder()
-                    .url("https://work.mma.go.kr/caisBYIS/search/downloadBYJJEopCheExcel.do")
-                    .post(body)
-                    .build()
-            ).execute()
-
-            val stream = ByteArrayInputStream(response.body?.bytes())
-            val workbook = HSSFWorkbook(stream)
-
-        }
-
     }
 
     private fun getKreditJobKey(companyKeyword: String): String {
