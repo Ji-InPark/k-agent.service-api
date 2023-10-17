@@ -64,6 +64,7 @@ class CompanyService(
         return kreditJobKey
     }
 
+    // todo rename
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
