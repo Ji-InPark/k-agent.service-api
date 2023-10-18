@@ -51,7 +51,6 @@ class CompanyService(
         return Sector.values()
     }
 
-    // todo rename
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
