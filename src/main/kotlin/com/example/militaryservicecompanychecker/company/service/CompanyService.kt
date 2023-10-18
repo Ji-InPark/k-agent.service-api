@@ -55,10 +55,10 @@ class CompanyService(
     fun getKreditJobKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
-        if (company.kreditJobKey != null) return company.kreditJobKey!!
+        if (company.wantedInsightKey != null) return company.wantedInsightKey!!
 
         val kreditJobKey = getKreditJobKey(company.companyKeyword)
-        company.kreditJobKey = kreditJobKey
+        company.wantedInsightKey = kreditJobKey
         companyRepository.saveAndFlush(company)
 
         return kreditJobKey
@@ -68,10 +68,10 @@ class CompanyService(
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
-        if (company.kreditJobKey != null) return company.kreditJobKey!!
+        if (company.wantedInsightKey != null) return company.wantedInsightKey!!
 
         val kreditJobKey = getKreditJobKey(company.companyKeyword)
-        company.kreditJobKey = kreditJobKey
+        company.wantedInsightKey = kreditJobKey
         companyRepository.saveAndFlush(company)
 
         return kreditJobKey

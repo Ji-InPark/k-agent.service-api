@@ -45,6 +45,6 @@ class Company(
     @Column(name = "keyword")
     var companyKeyword: String,
 ) : BaseEntity() {
-    @Column(name = "kreditjob_key")
-    var kreditJobKey: String? = null
+    @Column(name = "wanted_insight_key")
+    var wantedInsightKey: String? = null
 }
