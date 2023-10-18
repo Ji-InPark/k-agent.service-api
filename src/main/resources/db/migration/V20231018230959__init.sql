@@ -16,9 +16,6 @@ create table if not exists company
     service_type        varchar(255)
 );
 
-alter table company
-    owner to postgres;
-
 create index if not exists idxniu8sfil2gxywcru9ah3r4ec5
     on company (name);
 
