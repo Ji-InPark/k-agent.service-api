@@ -1,6 +1,6 @@
 package com.example.militaryservicecompanychecker.company.entity
 
-import com.example.militaryservicecompanychecker.common.BaseEntity
+import com.example.militaryservicecompanychecker.common.entity.BaseEntity
 import com.example.militaryservicecompanychecker.company.converter.GovernmentLocationConverter
 import com.example.militaryservicecompanychecker.company.converter.SectorConverter
 import com.example.militaryservicecompanychecker.company.converter.ServiceTypeConverter

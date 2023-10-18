@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.common
+package com.example.militaryservicecompanychecker.common.entity
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
