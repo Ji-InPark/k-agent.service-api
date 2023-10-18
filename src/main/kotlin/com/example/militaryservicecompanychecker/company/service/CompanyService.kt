@@ -51,33 +51,19 @@ class CompanyService(
         return Sector.values()
     }
 
-    // todo will remove after migration
-    fun getKreditJobKeyAndUpdateToCompany(id: Long): String {
-        val company = companyRepository.findById(id).orElseThrow()
-
-        if (company.kreditJobKey != null) return company.kreditJobKey!!
-
-        val kreditJobKey = getKreditJobKey(company.companyKeyword)
-        company.kreditJobKey = kreditJobKey
-        companyRepository.saveAndFlush(company)
-
-        return kreditJobKey
-    }
-
-    // todo rename
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String {
         val company = companyRepository.findById(id).orElseThrow()
 
-        if (company.kreditJobKey != null) return company.kreditJobKey!!
+        if (company.wantedInsightKey != null) return company.wantedInsightKey!!
 
-        val kreditJobKey = getKreditJobKey(company.companyKeyword)
-        company.kreditJobKey = kreditJobKey
+        val wantedInsightKey = wantedInsightJobKey(company.companyKeyword)
+        company.wantedInsightKey = wantedInsightKey
         companyRepository.saveAndFlush(company)
 
-        return kreditJobKey
+        return wantedInsightKey
     }
 
-    private fun getKreditJobKey(companyKeyword: String): String {
+    private fun wantedInsightJobKey(companyKeyword: String): String {
         val query =
             "q=$companyKeyword&index=0&size=5"
         val response = okHttpClient.newCall(

@@ -12,11 +12,11 @@ spring:
   config:
     activate:
       on-profile: common
-  jpa:
-    hibernate:
-      ddl-auto: update
   datasource:
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
   servlet:
     multipart:
       max-file-size: 10MB
@@ -24,6 +24,7 @@ spring:
 server:
   servlet:
     context-path: /api
+
 
 ---
 
@@ -35,14 +36,23 @@ spring:
     url: "${DATABASE_URL}"
     username: "${DATABASE_USERNAME}"
     password: "${DATABASE_PASSWORD}"
-
+  flyway:
+    url: "${DATABASE_URL}"
+    user: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
 ---
 
 spring:
   config:
     activate:
       on-profile: local
+  jpa:
+    show-sql: true
   datasource:
     url: jdbc:postgresql://localhost:1234/k-agent-database
     username: myuser
+    password: mypassword
+  flyway:
+    url: jdbc:postgresql://localhost:1234/k-agent-database
+    user: myuser
     password: mypassword
