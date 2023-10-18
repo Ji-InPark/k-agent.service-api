@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.service
 
+import com.example.militaryservicecompanychecker.common.service.ApiService
 import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
@@ -10,7 +11,6 @@ import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
 import com.example.militaryservicecompanychecker.company.util.Util.toCompanyKeyword
 import com.google.gson.internal.LinkedTreeMap
 import okhttp3.FormBody
-import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -22,7 +22,7 @@ import javax.transaction.Transactional
 @Service
 class CompanyService(
     private val companyRepository: CompanyRepository,
-    private val okHttpClient: OkHttpClient
+    private val apiService: ApiService
 ) {
     fun searchCompanyByRegex(regex: String): List<Company> {
         return companyRepository.findTop5ByCompanyNameRegex(regex)
@@ -64,14 +64,9 @@ class CompanyService(
     }
 
     private fun wantedInsightJobKey(companyKeyword: String): String {
-        val query =
-            "q=$companyKeyword&index=0&size=5"
-        val response = okHttpClient.newCall(
-            Request.Builder()
-                .url("https://insight.wanted.co.kr/api/search/autocomplete?$query")
-                .get()
-                .build()
-        ).execute()
+        val url = "https://insight.wanted.co.kr/api/search/autocomplete"
+        val urlQuery = "q=$companyKeyword&index=0&size=5"
+        val response = apiService.get(url, urlQuery)
 
         val docs = GsonJsonParser().parseMap(response.body?.string())["docs"] as ArrayList<*>
         val companyInfo = docs[0] as LinkedTreeMap<*, *>
@@ -140,15 +135,12 @@ class CompanyService(
     }
 
     private fun requestCompanyInfosToBYIS(serviceTypeNumber: Int): Response {
+        val url = "https://work.mma.go.kr/caisBYIS/search/downloadBYJJEopCheExcel.do"
         val body = FormBody.Builder()
             .add("eopjong_gbcd", serviceTypeNumber.toString())
             .build()
-        return okHttpClient.newCall(
-            Request.Builder()
-                .url("https://work.mma.go.kr/caisBYIS/search/downloadBYJJEopCheExcel.do")
-                .post(body)
-                .build()
-        ).execute()
+        
+        return apiService.post(url, body)
     }
 
     fun getServiceTypes(): Array<ServiceType> {
