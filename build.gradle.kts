@@ -38,7 +38,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.6.0")
     implementation("org.apache.poi:poi:5.2.3")
     implementation("org.apache.poi:poi-ooxml:5.2.3")
-    implementation("org.flywaydb:flyway-core:9.22.2")
+    implementation("org.flywaydb:flyway-core:9.16.3")
     implementation("org.springframework.boot:spring-boot-starter-security:3.1.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
