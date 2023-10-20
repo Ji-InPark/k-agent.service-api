@@ -6,15 +6,18 @@ import com.example.militaryservicecompanychecker.company.enums.GovernmentLocatio
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
+import com.example.militaryservicecompanychecker.companyupdatehistory.service.CompanyUpdateHistoryService
 import com.example.militaryservicecompanychecker.wantedinsight.service.WantedInsightService
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 import javax.transaction.Transactional
 
 @Service
 class CompanyService(
     private val companyRepository: CompanyRepository,
     private val byisService: ByisService,
-    private val wantedInsightService: WantedInsightService
+    private val wantedInsightService: WantedInsightService,
+    private val companyUpdateHistoryService: CompanyUpdateHistoryService
 ) {
     fun searchCompanyByRegex(regex: String): List<Company> {
         return companyRepository.findTop5ByCompanyNameRegex(regex)
@@ -60,6 +63,8 @@ class CompanyService(
         companyRepository.deleteAllInBatch()
 
         val companies = byisService.extractCompanies()
+
+        companyUpdateHistoryService.addCompanyUpdateHistory(LocalDate.now())
 
         return companyRepository.saveAllAndFlush(companies)
     }
