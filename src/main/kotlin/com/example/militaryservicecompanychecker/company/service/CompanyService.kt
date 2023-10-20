@@ -1,17 +1,16 @@
 package com.example.militaryservicecompanychecker.company.service
 
 import com.example.militaryservicecompanychecker.common.service.ApiService
+import com.example.militaryservicecompanychecker.common.util.EnumUtil.toGovernmentLocation
+import com.example.militaryservicecompanychecker.common.util.EnumUtil.toSector
+import com.example.militaryservicecompanychecker.common.util.Util.toCompanyKeyword
 import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
-import com.example.militaryservicecompanychecker.company.util.EnumUtil.toGovernmentLocation
-import com.example.militaryservicecompanychecker.company.util.EnumUtil.toSector
-import com.example.militaryservicecompanychecker.company.util.Util.toCompanyKeyword
 import com.google.gson.internal.LinkedTreeMap
 import okhttp3.FormBody
-import okhttp3.Request
 import okhttp3.Response
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import org.springframework.boot.json.GsonJsonParser
@@ -139,7 +138,7 @@ class CompanyService(
         val body = FormBody.Builder()
             .add("eopjong_gbcd", serviceTypeNumber.toString())
             .build()
-        
+
         return apiService.post(url, body)
     }
 

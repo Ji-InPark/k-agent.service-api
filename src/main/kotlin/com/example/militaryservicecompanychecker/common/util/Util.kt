@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.company.util
+package com.example.militaryservicecompanychecker.common.util
 
 object Util {
     inline fun <reified T : Enum<T>> safeValueOf(type: String?): T? {
