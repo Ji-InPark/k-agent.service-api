@@ -52,7 +52,7 @@ class CompanyController(
     }
 
     @GetMapping("/wanted-insight/{id}")
-    fun getWantedInsightKey(@PathVariable("id") id: Long): String {
+    fun getWantedInsightKey(@PathVariable("id") id: Long): String? {
         return companyService.getWantedInsightKeyAndUpdateToCompany(id)
     }
 
