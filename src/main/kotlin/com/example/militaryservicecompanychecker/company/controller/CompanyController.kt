@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanychecker.company.controller
 
+import com.example.militaryservicecompanychecker.common.util.Util.safeValueOf
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteRequest
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteResponse
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyRequest
@@ -8,7 +9,6 @@ import com.example.militaryservicecompanychecker.company.enums.GovernmentLocatio
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.service.CompanyService
-import com.example.militaryservicecompanychecker.company.util.Util.safeValueOf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
@@ -52,8 +52,8 @@ class CompanyController(
     }
 
     @GetMapping("/wanted-insight/{id}")
-    fun getWantedInsightKey(@PathVariable("id") id: Long): String {
-        return companyService.getWantedInsightKeyAndUpdateToCompany(id)
+    fun getWantedInsightKey(@PathVariable("id") id: Long): String? {
+        return companyService.getOrRequestWantedInsightKey(id)
     }
 
     @PostMapping("/company")
@@ -67,7 +67,7 @@ class CompanyController(
         ) return "비밀번호가 틀렸습니다."
 
         return CompanyResponse(
-            companyService.deleteAndCreateCompanyByFile()
+            companyService.updateCompanyInfoByBYIS()
         )
     }
 }

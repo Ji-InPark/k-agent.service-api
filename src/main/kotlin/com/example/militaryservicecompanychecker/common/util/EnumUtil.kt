@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanychecker.company.util
+package com.example.militaryservicecompanychecker.common.util
 
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
