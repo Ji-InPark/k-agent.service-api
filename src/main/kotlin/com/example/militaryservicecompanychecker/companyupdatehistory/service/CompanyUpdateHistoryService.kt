@@ -9,6 +9,6 @@ class CompanyUpdateHistoryService(
     private val companyUpdateHistoryRepository: CompanyUpdateHistoryRepository
 ) {
     fun getAllCompanyUpdateHistory(): MutableList<CompanyUpdateHistory> {
-        return companyUpdateHistoryRepository.findAll()
+        return companyUpdateHistoryRepository.findAllOrderByHistory()
     }
 }
