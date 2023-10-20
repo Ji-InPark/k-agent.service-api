@@ -48,7 +48,7 @@ class CompanyService(
     fun getWantedInsightKeyAndUpdateToCompany(id: Long): String? {
         val company = companyRepository.findById(id).orElseThrow()
 
-        if (company.wantedInsightKey != null) return company.wantedInsightKey!!
+        if (company.wantedInsightKey != null) return company.wantedInsightKey
 
         val wantedInsightKey = wantedInsightJobKey(company.companyKeyword)
         company.wantedInsightKey = wantedInsightKey
