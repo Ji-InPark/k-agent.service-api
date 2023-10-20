@@ -67,7 +67,7 @@ class CompanyController(
         ) return "비밀번호가 틀렸습니다."
 
         return CompanyResponse(
-            companyService.deleteAndCreateCompanyByFile()
+            companyService.updateCompanyInfoByBYIS()
         )
     }
 }

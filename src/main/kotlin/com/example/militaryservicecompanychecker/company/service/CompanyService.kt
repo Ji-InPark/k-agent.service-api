@@ -73,7 +73,7 @@ class CompanyService(
     }
 
     @Transactional
-    fun deleteAndCreateCompanyByFile(): MutableList<Company> {
+    fun updateCompanyInfoByBYIS(): MutableList<Company> {
         companyRepository.deleteAllInBatch()
 
         val companies = createCompaniesFromBYIS()
