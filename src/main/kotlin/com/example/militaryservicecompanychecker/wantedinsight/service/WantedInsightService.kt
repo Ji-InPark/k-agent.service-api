@@ -14,8 +14,12 @@ class WantedInsightService(
         val urlQuery = "q=$companyKeyword&index=0&size=5"
         val response = apiService.get(url, urlQuery)
 
-        val docs = GsonJsonParser().parseMap(response.body?.string())["docs"] as ArrayList<*>
-        val companyInfo = docs[0] as LinkedTreeMap<*, *>
-        return companyInfo["regNoHash"]?.toString()
+        return try {
+            val docs = GsonJsonParser().parseMap(response.body?.string())["docs"] as ArrayList<*>
+            val companyInfo = docs[0] as LinkedTreeMap<*, *>
+            companyInfo["regNoHash"]?.toString()
+        } catch (e: Exception) {
+            null
+        }
     }
 }
