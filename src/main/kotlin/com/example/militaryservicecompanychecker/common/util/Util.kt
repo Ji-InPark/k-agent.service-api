@@ -13,5 +13,6 @@ object Util {
         return this.replace("(주)", "")
             .replace("(유)", "")
             .replace("주식회사", "")
+            .trim()
     }
 }
