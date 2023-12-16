@@ -33,8 +33,8 @@ class CompanyService(
         else
             companyRepository.findAllByGovernmentLocationOrCompanySectorAndCompanyName(
                 searchName,
-                governmentLocation?.toString(),
-                sector?.toString()
+                governmentLocation.toString(),
+                sector.toString()
             )
     }
 
