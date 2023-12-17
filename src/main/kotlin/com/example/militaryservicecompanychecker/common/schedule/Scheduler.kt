@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class Scheduler(
     private val companyService: CompanyService
 ) {
-    @Scheduled(cron = "* * 3 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 0 3 * * *", zone = "Asia/Seoul")
     fun updateCompany() {
         companyService.updateCompanyInfoByBYIS()
     }
