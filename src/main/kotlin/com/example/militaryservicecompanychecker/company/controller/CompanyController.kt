@@ -2,7 +2,6 @@ package com.example.militaryservicecompanychecker.company.controller
 
 import com.example.militaryservicecompanychecker.common.util.Util.safeValueOf
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteRequest
-import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteResponse
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyRequest
 import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
@@ -20,10 +19,8 @@ class CompanyController(
     private val passwordEncoder: BCryptPasswordEncoder
 ) {
     @PostMapping("/search/autocomplete")
-    fun searchCompanyByRegex(@RequestBody request: CompanyAutoCompleteRequest): CompanyAutoCompleteResponse {
-        return CompanyAutoCompleteResponse(
-            companyService.searchCompanyByRegex(request.regex).map { it.companyName }
-        )
+    fun searchCompanyByRegex(@RequestBody request: CompanyAutoCompleteRequest): List<String> {
+        return companyService.searchCompanyByRegex(request.regex).map { it.companyName }
     }
 
     @PostMapping("/search")
