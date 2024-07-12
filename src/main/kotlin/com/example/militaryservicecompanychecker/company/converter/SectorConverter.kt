@@ -1,7 +1,7 @@
 package com.example.militaryservicecompanychecker.company.converter
 
 import com.example.militaryservicecompanychecker.company.enums.Sector
-import javax.persistence.AttributeConverter
+import jakarta.persistence.AttributeConverter
 
 class SectorConverter : AttributeConverter<Sector, String> {
     override fun convertToDatabaseColumn(attribute: Sector?): String {

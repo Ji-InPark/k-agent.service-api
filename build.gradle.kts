@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
+    id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
@@ -11,9 +11,9 @@ plugins {
 
 allOpen {
     annotations(
-        "javax.persistence.Entity",
-        "javax.persistence.MappedSuperclass",
-        "javax.persistence.Embedabble"
+        "jakarta.persistence.Entity",
+        "jakarta.persistence.MappedSuperclass",
+        "jakarta.persistence.Embedabble"
     )
 }
 

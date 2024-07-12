@@ -1,9 +1,9 @@
 package com.example.militaryservicecompanychecker.companyupdatehistory.entity
 
 import com.example.militaryservicecompanychecker.common.entity.BaseEntity
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
 import java.time.LocalDate
-import javax.persistence.Entity
-import javax.persistence.Table
 
 @Entity
 @Table(name = "company_update_history", schema = "PUBLIC")

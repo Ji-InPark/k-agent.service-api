@@ -8,9 +8,9 @@ import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.repository.CompanyRepository
 import com.example.militaryservicecompanychecker.companyupdatehistory.service.CompanyUpdateHistoryService
 import com.example.militaryservicecompanychecker.wantedinsight.service.WantedInsightService
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.time.LocalDate
-import javax.transaction.Transactional
 
 @Service
 class CompanyService(

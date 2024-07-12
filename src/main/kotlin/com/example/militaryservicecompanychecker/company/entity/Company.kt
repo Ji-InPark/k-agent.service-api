@@ -8,7 +8,7 @@ import com.example.militaryservicecompanychecker.company.enums.GovernmentLocatio
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.fasterxml.jackson.annotation.JsonIgnore
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "company", schema = "PUBLIC", indexes = [Index(columnList = "name")])
