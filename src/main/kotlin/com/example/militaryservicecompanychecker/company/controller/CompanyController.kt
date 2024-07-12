@@ -4,11 +4,12 @@ import com.example.militaryservicecompanychecker.common.util.Util.safeValueOf
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteRequest
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyAutoCompleteResponse
 import com.example.militaryservicecompanychecker.company.controller.dto.CompanyRequest
-import com.example.militaryservicecompanychecker.company.controller.dto.CompanyResponse
+import com.example.militaryservicecompanychecker.company.entity.Company
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
 import com.example.militaryservicecompanychecker.company.enums.Sector
 import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import com.example.militaryservicecompanychecker.company.service.CompanyService
+import org.springframework.data.domain.PageImpl
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.*
 
@@ -26,13 +27,13 @@ class CompanyController(
     }
 
     @PostMapping("/search")
-    fun searchCompany(@RequestBody request: CompanyRequest): CompanyResponse {
-        return CompanyResponse(
-            companyService.searchCompany(
-                request.companyName.toString(),
-                safeValueOf<GovernmentLocation>(request.governmentLocation.toString()),
-                safeValueOf<Sector>(request.sector.toString())
-            )
+    fun searchCompany(@RequestBody request: CompanyRequest): PageImpl<Company> {
+        return companyService.searchCompany(
+            request.companyName.toString(),
+            safeValueOf<GovernmentLocation>(request.governmentLocation.toString()),
+            safeValueOf<Sector>(request.sector.toString()),
+            request.page,
+            request.size
         )
     }
 
@@ -66,8 +67,6 @@ class CompanyController(
             )
         ) return "비밀번호가 틀렸습니다."
 
-        return CompanyResponse(
-            companyService.updateCompanyInfoByBYIS()
-        )
+        return companyService.updateCompanyInfoByBYIS()
     }
 }
