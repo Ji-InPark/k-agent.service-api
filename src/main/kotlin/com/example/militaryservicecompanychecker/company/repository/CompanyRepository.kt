@@ -1,7 +1,6 @@
 package com.example.militaryservicecompanychecker.company.repository
 
 import com.example.militaryservicecompanychecker.company.entity.Company
-import com.example.militaryservicecompanychecker.company.enums.ServiceType
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -29,6 +28,4 @@ interface CompanyRepository : JpaRepository<Company, String> {
     fun findAllByCompanyNameContainsOrderByIdAsc(companyName: String): List<Company>
 
     fun findById(id: Long): Optional<Company>
-
-    fun deleteByServiceType(serviceType: ServiceType)
 }

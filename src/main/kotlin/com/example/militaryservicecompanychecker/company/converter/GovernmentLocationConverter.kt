@@ -1,8 +1,10 @@
 package com.example.militaryservicecompanychecker.company.converter
 
 import com.example.militaryservicecompanychecker.company.enums.GovernmentLocation
-import javax.persistence.AttributeConverter
+import jakarta.persistence.AttributeConverter
+import jakarta.persistence.Converter
 
+@Converter
 class GovernmentLocationConverter : AttributeConverter<GovernmentLocation, String> {
     override fun convertToDatabaseColumn(attribute: GovernmentLocation?): String {
         return attribute.toString()
