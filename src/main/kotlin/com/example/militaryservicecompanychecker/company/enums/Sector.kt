@@ -49,7 +49,8 @@ enum class Sector(val sector: String) {
     특정연구소("특정연구소"),
     해운업("해운업"),
     화학("화학"),
-    후계농업민("후계농업민");
+    후계농업민("후계농업민"),
+    영상게임("영상게임");
 
     companion object {
         private val map = Sector.values().associateBy { it.sector }
